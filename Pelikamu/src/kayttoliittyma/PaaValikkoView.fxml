@@ -1,7 +1,155 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollBar?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DisplacementMap?>
+<?import javafx.scene.effect.FloatMap?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
 
-<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="kayttoliittyma.PaaValikkoController">
-    <!-- TODO Add Nodes -->
-</BorderPane>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="439.0" prefWidth="647.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <MenuBar prefHeight="27.0" prefWidth="647.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="Pelit">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Close" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Asetukset">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Delete" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Apua">
+            <items>
+              <MenuItem mnemonicParsing="false" text="About" />
+            </items>
+          </Menu>
+        </menus>
+         <effect>
+            <DisplacementMap>
+               <mapData>
+                  <FloatMap />
+               </mapData>
+            </DisplacementMap>
+         </effect>
+      </MenuBar>
+      <HBox layoutX="14.0" layoutY="27.0" prefHeight="81.0" prefWidth="621.0" style="-fx-background-color: Green;">
+         <children>
+            <SplitPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: Green;">
+               <items>
+                  <Label alignment="CENTER" prefHeight="88.0" prefWidth="122.0" text="Annie">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+               </items>
+            </SplitPane>
+            <SplitPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: Green;">
+               <items>
+                  <Label alignment="CENTER" prefHeight="92.0" prefWidth="122.0" text="VOITTO">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+               </items>
+            </SplitPane>
+            <SplitPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: green;">
+               <items>
+                  <Label alignment="CENTER" prefHeight="85.0" prefWidth="122.0" text="12/8/6">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+               </items>
+            </SplitPane>
+            <SplitPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: green;">
+               <items>
+                  <SplitPane prefHeight="200.0" prefWidth="200.0">
+                     <items>
+                        <Label alignment="CENTER" prefHeight="82.0" prefWidth="122.0" style="-fx-background-color: green;" text="23:35">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                     </items>
+                  </SplitPane>
+               </items>
+            </SplitPane>
+            <SplitPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: green;">
+               <items>
+                  <Label alignment="CENTER" prefHeight="83.0" prefWidth="123.0" text="Ranked">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+               </items>
+            </SplitPane>
+         </children>
+      </HBox>
+      <HBox layoutX="14.0" layoutY="108.0" prefHeight="95.0" prefWidth="621.0">
+         <children>
+            <SplitPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: red;">
+               <items>
+                  <Label alignment="CENTER" prefHeight="88.0" prefWidth="122.0" text="Teemo">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+               </items>
+            </SplitPane>
+            <SplitPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: red;">
+               <items>
+                  <Label alignment="CENTER" prefHeight="92.0" prefWidth="122.0" text="HÄVIÖ">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+               </items>
+            </SplitPane>
+            <SplitPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: red;">
+               <items>
+                  <Label alignment="CENTER" prefHeight="85.0" prefWidth="122.0" text="0/12/1">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+               </items>
+            </SplitPane>
+            <SplitPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: red;">
+               <items>
+                  <SplitPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: red;">
+                     <items>
+                        <Label alignment="CENTER" prefHeight="82.0" prefWidth="122.0" text="31:25">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                     </items>
+                  </SplitPane>
+               </items>
+            </SplitPane>
+            <SplitPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: red;">
+               <items>
+                  <Label alignment="CENTER" prefHeight="83.0" prefWidth="123.0" text="Ranked">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+               </items>
+            </SplitPane>
+         </children>
+      </HBox>
+      <ScrollBar layoutX="630.0" layoutY="27.0" orientation="VERTICAL" prefHeight="410.0" prefWidth="17.0" />
+      <TextField layoutX="481.0" layoutY="413.0" />
+      <Label layoutX="446.0" layoutY="417.0" text="Haku:" />
+   </children>
+</AnchorPane>
