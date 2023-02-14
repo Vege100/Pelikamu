@@ -1,9 +1,0 @@
-/**
- * 
- */
-/**
- * @author Verneri
- *
- */
-module Pelikamu {
-}
