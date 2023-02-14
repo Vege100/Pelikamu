@@ -30,7 +30,7 @@ public class PaaValikkoMain extends Application {
     }
 
     /**
-     * @param args Ei käytössä
+     * @param args Ei kytss
      */
     public static void main(String[] args) {
         launch(args);
