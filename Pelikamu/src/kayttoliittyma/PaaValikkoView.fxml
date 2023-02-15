@@ -17,13 +17,13 @@
    <children>
       <MenuBar prefHeight="27.0" prefWidth="647.0">
         <menus>
-          <Menu mnemonicParsing="false" text="Pelit">
+          <Menu mnemonicParsing="false" text="Menu">
             <items>
-              <MenuItem mnemonicParsing="false" onAction="#LisaaPeli" text="Kaikki" />
-                  <MenuItem mnemonicParsing="false" onAction="#LisaaPeli" text="Lisää..." />
-                  <MenuItem mnemonicParsing="false" onAction="#LisaaPeli" text="Tulosta..." />
-                  <MenuItem mnemonicParsing="false" onAction="#LisaaPeli" text="Poista..." />
-                  <MenuItem mnemonicParsing="false" onAction="#LisaaPeli" text="Lopeta" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleHahmot" text="Hahmot" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleLisääPeli" text="Lisää..." />
+                  <MenuItem mnemonicParsing="false" onAction="#handleTulosta" text="Tulosta..." />
+                  <MenuItem mnemonicParsing="false" onAction="#handlePoistaPeli" text="Poista..." />
+                  <MenuItem mnemonicParsing="false" onAction="#handleLopeta" text="Lopeta" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Asetukset">
