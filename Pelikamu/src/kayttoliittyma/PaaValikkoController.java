@@ -1,5 +1,6 @@
 package kayttoliittyma;
 
+import java.awt.ScrollPane;
 import java.io.IOException;
 
 import fi.jyu.mit.fxgui.Dialogs;
@@ -12,6 +13,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import luokat.Peli;
 import luokat.Pelikamu;
 
 /**
@@ -24,6 +26,9 @@ public class PaaValikkoController {
     private Pane Hahmosivu;
     
     @FXML
+    private ScrollPane panelPelit;
+    
+    @FXML
     private Pane rootpane;
 
     @FXML
@@ -33,7 +38,8 @@ public class PaaValikkoController {
     }
     @FXML
     void handleLisääPeli(ActionEvent event) {
-        ModalController.showModal(PaaValikkoController.class.getResource("PeliLisäys.fxml"), "Jäsen", null, "");
+        // ModalController.showModal(PaaValikkoController.class.getResource("PeliLisäys.fxml"), "Jäsen", null, "");
+        lisääPeli();
     }
 
     @FXML
@@ -65,12 +71,27 @@ public class PaaValikkoController {
     // --------------------------------------------------------------------------
  
     
-   // private Pelikamu pelikamu;
+    private Pelikamu pelikamu;
     //private Peli peliKohdalla;
     
     
    // protected void alusta() {
        // ;
     //}
+    protected void lisääPeli() {
+        Peli uusi = new Peli();
+        uusi.register();
+        uusi.perusTeemo();
+        try {
+            pelikamu.add(uusi);
+        } catch (apuException e) {
+            Dialogs.showMessageDialog("problems " + e.geMessage());
+            return;
+        }
+        search(uusi.getId());
+    }
     
+    protected void search(int id) {
+        ;
+    }
 }

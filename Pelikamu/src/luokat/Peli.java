@@ -20,6 +20,10 @@ public class Peli {
             idCount++;
             return id;
         }
+        
+        public int getId() {
+            return id;
+        }
     
         public void print(PrintStream out) {
             out.println(String.format("%02d/%02d%%02d",kills,deaths,assists) + timeM + ":" +  timeS +" ");
@@ -27,6 +31,19 @@ public class Peli {
         
         public int getHId() {
             return hId;
+        }
+        
+        public void perusTeemo() {
+            this.hId = 1;
+            this.win = false;
+            kills = 13;
+            deaths = 2;
+            assists = 0;
+            timeM = 23;
+            timeS = 45;
+            gameStyle = "RANKED";
+            
+            
         }
         
         
