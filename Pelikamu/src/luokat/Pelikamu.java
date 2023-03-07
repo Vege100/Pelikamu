@@ -32,6 +32,8 @@ public class Pelikamu {
             return pelit.get(i);
         }
         
+        
+        
         public List<Peli> givePelit(Hahmo hahmo) {
             return Pelit.annaPelit(hahmo.getId());
         }
@@ -44,6 +46,14 @@ public class Pelikamu {
         public void save() {
             hahmot.save();
             pelit.save();
+        }
+        
+        public Hahmo getChampion(int id) {
+            return hahmot.getChampion(id);
+        }
+        
+        public String getChampionName(int i) {
+            return hahmot.getName(i);
         }
         
         //public static void main(String args[]) {

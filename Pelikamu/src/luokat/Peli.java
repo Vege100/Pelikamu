@@ -20,11 +20,13 @@ public class Peli {
             idCount++;
             return id;
         }
-        
-        public void parse(String )
-        
+    
         public void print(PrintStream out) {
-            out.println(String.format("%02d/%02d%%02d",kills,deaths,assists) + timeM + ":" +  timeS +" " + Hahmot.champions);
+            out.println(String.format("%02d/%02d%%02d",kills,deaths,assists) + timeM + ":" +  timeS +" ");
+        }
+        
+        public int getHId() {
+            return hId;
         }
         
         

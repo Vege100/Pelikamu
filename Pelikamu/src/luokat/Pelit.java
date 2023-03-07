@@ -28,11 +28,19 @@ public class Pelit {
         return alkiot[i];
     }
     
-    public void readFile()
+    public void readFile(String hakemisto) {
+        tiedostonNimi = hakemisto + "/pelit.dat";
+        
+    }
+    
+    public void save() {
+        ;
+    }
     
     
-    //toimiiko
     
+    
+   
 }
 
 

@@ -12,6 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import luokat.Pelikamu;
 
 /**
  * @author Verneri
@@ -62,5 +63,14 @@ public class PaaValikkoController {
     }
 
     // --------------------------------------------------------------------------
+ 
+    
+   // private Pelikamu pelikamu;
+    //private Peli peliKohdalla;
+    
+    
+   // protected void alusta() {
+       // ;
+    //}
     
 }
