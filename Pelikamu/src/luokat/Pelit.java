@@ -31,7 +31,7 @@ public class Pelit {
     public void readFile()
     
     
-    /// 
+    //toimiiko
     
 }
 
