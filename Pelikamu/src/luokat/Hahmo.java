@@ -22,7 +22,7 @@ public class Hahmo {
      */
     public void addRandom() {
         Random r = new Random();
-        if (r.nextInt(2) > 1) name = "teemo";
+        if (r.nextInt(2) > 0) name = "teemo";
         else name = "annie"; 
         id = r.nextInt(2);
     }
