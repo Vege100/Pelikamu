@@ -5,7 +5,7 @@ import java.util.Random;
 /**
  * @author Verneri
  * @version 14 Mar 2023
- *
+ * Luokka hahmojen tallentamista varten
  */
 public class Hahmo {
     private String name;
