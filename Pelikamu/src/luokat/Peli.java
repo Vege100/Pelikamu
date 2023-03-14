@@ -1,6 +1,8 @@
 package luokat;
 
-import 
+import java.io.PrintStream;
+import java.util.Random;
+
 
 public class Peli {
         private int id;
@@ -26,21 +28,29 @@ public class Peli {
         }
     
         public void print(PrintStream out) {
-            out.println(String.format("%02d/%02d%%02d",kills,deaths,assists) + timeM + ":" +  timeS +" ");
+            String oliko = olikoVoitto();
+            out.println(String.format("%02d/%02d/%02d",kills,deaths,assists)+ "    " + gameStyle + "    " + String.format("%4s",oliko) + "    "+ String.format("%02d:%02d", timeM, timeS) + "   " + hId);
         }
         
         public int getHId() {
             return hId;
         }
+       
+        public String olikoVoitto() {
+            if (win) return "WIN";
+            return "LOST";
+        }
         
         public void perusTeemo() {
-            this.hId = 1;
-            this.win = false;
-            kills = 13;
-            deaths = 2;
-            assists = 0;
-            timeM = 23;
-            timeS = 45;
+            
+            Random random = new Random();
+            hId = random.nextInt(3);
+            win = random.nextBoolean();
+            kills = random.nextInt(20);
+            deaths = random.nextInt(20);
+            assists = random.nextInt(20);
+            timeM = random.nextInt(40);;
+            timeS = random.nextInt(60);;
             gameStyle = "RANKED";
             
             

@@ -1,5 +1,7 @@
 package luokat;
 
+import java.util.List;
+
 public class Pelikamu {
         private final Hahmot hahmot = new Hahmot();
         private final Pelit pelit = new Pelit();
@@ -15,8 +17,9 @@ public class Pelikamu {
         /**
          * Lisää uuden pelin
          * @param peli joka lisätään
+         * @throws apuException 
          */
-        public void add(Peli peli) {
+        public void add(Peli peli) throws apuException {
             pelit.add(peli);
         }
         /**
@@ -34,8 +37,8 @@ public class Pelikamu {
         
         
         
-        public List<Peli> givePelit(Hahmo hahmo) {
-            return Pelit.annaPelit(hahmo.getId());
+        public List<Peli> givePelit(int hId) {
+            return Pelit.annaPelit(hId);
         }
         
         public void readFile(String nimi) {

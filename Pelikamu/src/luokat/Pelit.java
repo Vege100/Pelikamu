@@ -1,4 +1,8 @@
 package luokat;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *  Hallitsee pelejä
  * @author Verneri
@@ -9,7 +13,7 @@ public class Pelit {
     private static final int    MAX_PELEJA      = 5;
     private int                 lkm             = 0;
     private String              tiedostonNimi   = "";
-    private Peli[]              alkiot          = new Peli[MAX_PELEJA];
+    private static Peli[]       alkiot          = new Peli[MAX_PELEJA];
 
     
     /**
@@ -19,7 +23,11 @@ public class Pelit {
         
     }
     
-    public void add(Peli peli) {
+    /**
+     * @param peli 
+     * @throws apuException  
+     */
+    public void add(Peli peli) throws apuException {
         alkiot[lkm] = peli;
         lkm++;
     }
@@ -35,6 +43,19 @@ public class Pelit {
     
     public void save() {
         ;
+    }
+    
+    public static List<Peli> annaPelit(int hahmoId) {
+        List<Peli> lista = new ArrayList<Peli>();
+        for (Peli peli: alkiot) {
+            if (peli == null) return lista;
+            if (peli.getHId() == hahmoId) lista.add(peli);
+        }
+        return lista;
+    }
+    
+    public int getLkm() {
+        return lkm;
     }
     
     
