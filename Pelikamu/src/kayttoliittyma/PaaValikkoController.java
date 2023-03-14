@@ -1,7 +1,6 @@
 package kayttoliittyma;
 
 import java.awt.Desktop;
-import java.io.IOException;
 import java.io.PrintStream;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -38,12 +37,9 @@ import luokat.apuException;
 public class PaaValikkoController implements Initializable{
     @FXML
     private Pane Hahmosivu;
-    
-    @FXML
-    private ScrollPane panelPelit;
-    
-    @FXML
-    private Pane rootpane;
+   // @FXML private ComboBoxChooser<String> cbKentat;
+    @FXML private ScrollPane panelPelit;  
+    @FXML private Pane rootpane;
     
     @Override
     public void initialize(URL url, ResourceBundle bundle) {
@@ -52,7 +48,7 @@ public class PaaValikkoController implements Initializable{
 
 
     @FXML
-    void handleHahmot(ActionEvent event) throws IOException {
+    void handleHahmot(ActionEvent event) {
         // Pane pane = FXMLLoader.load(getClass().getResource("Hahmot.fxml"));
         // rootpane.getChildren().setAll(pane);
         showPeli(1);
@@ -62,6 +58,11 @@ public class PaaValikkoController implements Initializable{
         ModalController.showModal(PaaValikkoController.class.getResource("PeliLisäys.fxml"), "Peli", null, "");
         lisääPeli();
     }
+  //  TODO järkevästi lista hahmoista
+  //  @FXML 
+  //  void handleHahmoCb(ActionEvent event) {
+  //      ;
+  //  }
 
     @FXML
     void handleLopeta(ActionEvent event) {
@@ -70,7 +71,7 @@ public class PaaValikkoController implements Initializable{
 
     @FXML
     void handlePoistaPeli(ActionEvent event) {
-
+            // TODO poistaminen
     }
 
     @FXML
@@ -97,6 +98,9 @@ public class PaaValikkoController implements Initializable{
     private TextArea areaPeli = new TextArea();
     
 
+    /**
+     * Pelin lisäys
+     */
     protected void lisääPeli() {
         Peli uusi = new Peli();
         uusi.register();
@@ -114,10 +118,16 @@ public class PaaValikkoController implements Initializable{
         hah.lisaaPari();
     }
     
+    /**
+     * @param id TODO hakeminen
+     */
     protected void search(int id) {
-        ;
+            ;
     }
     
+    /**
+     * Graafinen alustus
+     */
     protected void alusta() {
         panelPelit.setContent(areaPeli);
         areaPeli.setFont(new Font("Courier New", 12));
@@ -125,6 +135,9 @@ public class PaaValikkoController implements Initializable{
         
     }
     
+    /**
+     * Tulostaa pelit ruutuun
+     */
     protected void showPeli() {
         areaPeli.setText("");
         try (PrintStream os = TextAreaOutputStream.getTextPrintStream(areaPeli)) {
@@ -133,6 +146,9 @@ public class PaaValikkoController implements Initializable{
         }
     }
     
+    /**
+     * @param hId tulostaa "valitun" hahmon pelit ruutuun, tällä hetkellä kutsussa aina hId = 1
+     */
     protected void showPeli(int hId) {
         List<Peli> pelit = pelikamu.givePelit(hId);
         areaPeli.setText("");
@@ -144,6 +160,11 @@ public class PaaValikkoController implements Initializable{
         
     }
         
+    /**
+     * Hetkellinen tulostus tekstinä näyttöön
+     * @param os tulostus ulos
+     * @param peli joka tulostetaan
+     */
     public void print(PrintStream os, final Peli peli) {
         os.println("----------------------------------------------");
         peli.print(os);
@@ -151,6 +172,10 @@ public class PaaValikkoController implements Initializable{
         
     }
     
+    /**
+     * alustus ohjelma, EI KÄYTÖSSÄ
+     * @param pelikamu joka alustetaan
+     */
     public void setPelikamu(Pelikamu pelikamu) {
         this.pelikamu = pelikamu;
     }

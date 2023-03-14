@@ -2,6 +2,11 @@ package luokat;
 
 import java.util.Random;
 
+/**
+ * @author Verneri
+ * @version 14 Mar 2023
+ *
+ */
 public class Hahmo {
     private String name;
     private int id;
@@ -12,6 +17,9 @@ public class Hahmo {
         return name;
     }
     
+    /**
+     * Asiakasta varten random hahmo
+     */
     public void addRandom() {
         Random r = new Random();
         if (r.nextInt(2) > 1) name = "teemo";
@@ -19,6 +27,9 @@ public class Hahmo {
         id = r.nextInt(2);
     }
     
+    /**
+     * @return palauttaa id
+     */
     public int getId() {
         return id;
         
