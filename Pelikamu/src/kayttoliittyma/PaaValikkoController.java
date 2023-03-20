@@ -51,8 +51,8 @@ public class PaaValikkoController implements Initializable{
     void handleHahmot(ActionEvent event) {
         // Pane pane = FXMLLoader.load(getClass().getResource("Hahmot.fxml"));
         // rootpane.getChildren().setAll(pane);
-        // showPeli(1);
-        lisääHahmo();
+        showPeli(1);
+        // lisääHahmo();
         // ModalController.showModal(PaaValikkoController.class.getResource("Hahmot.fxml"), "Hahmot", null, pelikamu);
     }
     @FXML
