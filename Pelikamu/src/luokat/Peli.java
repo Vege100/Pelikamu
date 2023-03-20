@@ -61,6 +61,10 @@ public class Peli {
             return "LOST";
         }
         
+        public void setHahmo (int i) {
+            hId = i;
+        }
+        
         /**
          * Asiakasta varten, näytetään miten ohjelma toimii
          */

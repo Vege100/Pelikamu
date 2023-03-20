@@ -37,7 +37,7 @@ import luokat.apuException;
 public class PaaValikkoController implements Initializable{
     @FXML
     private Pane Hahmosivu;
-   // @FXML private ComboBoxChooser<String> cbKentat;
+    // @FXML private ComboBoxChooser<String> cbKentat;
     @FXML private ScrollPane panelPelit;  
     @FXML private Pane rootpane;
     
@@ -51,12 +51,14 @@ public class PaaValikkoController implements Initializable{
     void handleHahmot(ActionEvent event) {
         // Pane pane = FXMLLoader.load(getClass().getResource("Hahmot.fxml"));
         // rootpane.getChildren().setAll(pane);
-        showPeli(1);
+        // showPeli(1);
+        lisääHahmo();
+        // ModalController.showModal(PaaValikkoController.class.getResource("Hahmot.fxml"), "Hahmot", null, pelikamu);
     }
     @FXML
     void handleLisääPeli(ActionEvent event) {
-        ModalController.showModal(PaaValikkoController.class.getResource("PeliLisäys.fxml"), "Peli", null, "");
-        lisääPeli();
+        ModalController.showModal(PaaValikkoController.class.getResource("PeliLisäys.fxml"), "Peli", null, pelikamu);
+        //  lisääPeli();
     }
   //  TODO järkevästi lista hahmoista
   //  @FXML 
@@ -105,6 +107,7 @@ public class PaaValikkoController implements Initializable{
         Peli uusi = new Peli();
         uusi.register();
         uusi.perusTeemo();
+        
         try {
             pelikamu.add(uusi);            
         }
@@ -114,8 +117,14 @@ public class PaaValikkoController implements Initializable{
 
         }
         search(uusi.getId());
-        Hahmot hah = new Hahmot();
-        hah.lisaaPari();
+    }
+    
+    
+    protected void lisääHahmo() {
+        
+        Hahmo hahmo = new Hahmo();
+        pelikamu.add()
+        
     }
     
     /**

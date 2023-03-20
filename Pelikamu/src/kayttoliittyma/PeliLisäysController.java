@@ -25,7 +25,7 @@ import luokat.Peli;
 import luokat.Pelikamu;
 import luokat.apuException;
 
-public class PeliLisäysController implements ModalControllerInterface<String> {
+public class PeliLisäysController implements ModalControllerInterface<Pelikamu> {
     
     @FXML private ChoiceBox<Hahmo> hahmoChoice;
     @FXML private ChoiceBox<String> pelityyliChoice;
@@ -49,13 +49,13 @@ public class PeliLisäysController implements ModalControllerInterface<String> {
         alusta();
     }
     @Override
-    public String getResult() {
-        return null;
+    public Pelikamu getResult() {
+        return pelikamu;
     } 
     
     @Override
-    public void setDefault(String oletus) {
-                ;
+    public void setDefault(Pelikamu oletus) {
+             pelikamu = oletus;
     }
 
 
@@ -67,14 +67,13 @@ public class PeliLisäysController implements ModalControllerInterface<String> {
     //--------------------------------------------------------------------------------------
     
     private final ObservableList<Hahmo> alkiot = FXCollections.observableArrayList();
-    private Pelikamu pelikamu = new Pelikamu();
+    private Pelikamu pelikamu;
     
     public void alusta() {
         Hahmo hahmo = new Hahmo();
         hahmo.addRandom();
         alkiot.add(hahmo);
         hahmoChoice.setItems(alkiot);
-        
     }
     
     protected void lisääPeli() {
