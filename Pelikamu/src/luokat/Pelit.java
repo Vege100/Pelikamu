@@ -28,8 +28,7 @@ public class Pelit {
      * @throws apuException oletus virheilmoitus
      */
     public void add(Peli peli) throws apuException {
-        alkiot[lkm] = peli;
-        lkm++;
+        alkiot[lkm++] = peli;
     }
     
     /**

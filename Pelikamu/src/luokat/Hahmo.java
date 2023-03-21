@@ -11,6 +11,8 @@ public class Hahmo {
     private String name;
     private int id;
     
+    private static int nextId = 1;
+    
     
     @Override 
     public String toString() {
@@ -18,15 +20,30 @@ public class Hahmo {
     }
     
     /**
-     * Asiakasta varten random hahmo
+     *  Vielä ei tarvitse alustaa
      */
-    public void addRandom() {
-        Random r = new Random();
-        if (r.nextInt(2) > 1) name = "teemo";
-        else name = "annie"; 
-        id = r.nextInt(2);
+    public Hahmo() {
+        //
     }
     
+    /**
+     * Vastaa parametreihin annien tiedot
+     */
+    public void perusAnnie() {
+        name = "annie";
+    }
+    
+    /**
+     * Estää päällekkäisyyksiä
+     * @return id 
+     */
+    public int register () {
+        id = nextId;
+        nextId++;
+        return id;
+    }
+    
+
     /**
      * @return palauttaa id
      */
@@ -34,4 +51,4 @@ public class Hahmo {
         return id;
         
     }
-} //Toimiiko?
+}

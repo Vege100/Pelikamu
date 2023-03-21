@@ -24,6 +24,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
+import luokat.Hahmo;
 import luokat.Hahmot;
 import luokat.Peli;
 import luokat.Pelikamu;
@@ -51,8 +52,8 @@ public class PaaValikkoController implements Initializable{
     void handleHahmot(ActionEvent event) {
         // Pane pane = FXMLLoader.load(getClass().getResource("Hahmot.fxml"));
         // rootpane.getChildren().setAll(pane);
-        showPeli(1);
-        // lisääHahmo();
+        // showPeli(1);
+        lisääHahmo();
         // ModalController.showModal(PaaValikkoController.class.getResource("Hahmot.fxml"), "Hahmot", null, pelikamu);
     }
     @FXML
@@ -96,43 +97,26 @@ public class PaaValikkoController implements Initializable{
  
     
     private Pelikamu pelikamu = new Pelikamu();
-    private Peli peliKohdalla = new Peli();
     private TextArea areaPeli = new TextArea();
     
 
+    
     /**
-     * Pelin lisäys
+     * 
      */
-    protected void lisääPeli() {
-        Peli uusi = new Peli();
-        uusi.register();
-        uusi.perusTeemo();
-        
+    protected void lisääHahmo() {
+        Hahmo hahmo = new Hahmo();
+        hahmo.register();
+        hahmo.perusAnnie();
         try {
-            pelikamu.add(uusi);            
+            pelikamu.add(hahmo);            
         }
         catch (apuException e) {
             Dialogs.showMessageDialog("Ongelmia uuden luomisessa " + e.getMessage());
             return;
-
         }
-        search(uusi.getId());
     }
-    
-    
-    protected void lisääHahmo() {
-        
-        Hahmo hahmo = new Hahmo();
-        pelikamu.add()
-        
-    }
-    
-    /**
-     * @param id TODO hakeminen
-     */
-    protected void search(int id) {
-            ;
-    }
+
     
     /**
      * Graafinen alustus
@@ -151,12 +135,14 @@ public class PaaValikkoController implements Initializable{
         areaPeli.setText("");
         try (PrintStream os = TextAreaOutputStream.getTextPrintStream(areaPeli)) {
             for (int i = 0; i < pelikamu.getPelit(); i++)
-                print(os,pelikamu.getPeli(i)); 
+                print(os,pelikamu.getPeli(i));
+               
         }
     }
     
     /**
-     * @param hId tulostaa "valitun" hahmon pelit ruutuun, tällä hetkellä kutsussa aina hId = 1
+     *  tulostaa "valitun" hahmon pelit ruutuun
+     * @param hId valitun hahmon id
      */
     protected void showPeli(int hId) {
         List<Peli> pelit = pelikamu.givePelit(hId);
@@ -177,6 +163,7 @@ public class PaaValikkoController implements Initializable{
     public void print(PrintStream os, final Peli peli) {
         os.println("----------------------------------------------");
         peli.print(os);
+        os.println(" " + pelikamu.getChampionName(peli.getHid()));
         os.println("----------------------------------------------");
         
     }

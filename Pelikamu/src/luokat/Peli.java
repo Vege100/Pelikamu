@@ -32,10 +32,19 @@ public class Peli {
         }
         
         /**
+         * palauttaa pelin id
          * @return pelin id
          */
         public int getId() {
             return id;
+        }
+        
+        /**
+         * palauttaa pelin hahmon id
+         * @return hahmon id
+         */
+        public int getHid() {
+            return hId;
         }
     
         /**
@@ -43,7 +52,7 @@ public class Peli {
          */
         public void print(PrintStream out) {
             String oliko = olikoVoitto();
-            out.println(String.format("%02d/%02d/%02d",kills,deaths,assists)+ "    " + gameStyle + "    " + String.format("%4s",oliko) + "    "+ String.format("%02d:%02d", timeM, timeS) + "   " + hId);
+            out.print(String.format("%02d/%02d/%02d",kills,deaths,assists)+ "    " + gameStyle + "    " + String.format("%4s",oliko) + "    "+ String.format("%02d:%02d", timeM, timeS) + "   " + hId);
         }
         
         /**
@@ -61,6 +70,9 @@ public class Peli {
             return "LOST";
         }
         
+        /**
+         * @param i hahmon id
+         */
         public void setHahmo (int i) {
             hId = i;
         }
@@ -71,7 +83,6 @@ public class Peli {
         public void perusTeemo() {
             
             Random random = new Random();
-            hId = random.nextInt(3);
             win = random.nextBoolean();
             kills = random.nextInt(20);
             deaths = random.nextInt(20);

@@ -1,6 +1,9 @@
 package luokat;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -9,19 +12,10 @@ import java.util.List;
  * Luokka hahmoja varten
  */
 public class Hahmot {
-    private static final int MAX_HAHMOJA = 10;
-    private Hahmo[] champions = new Hahmo[MAX_HAHMOJA];
-    private int lkm = 0;
+    
+    private final Collection<Hahmo> champions        = new ArrayList<Hahmo>();
     
     
-    /**
-     * @param id hahmon id
-     * @return halutun hahmon
-     */
-    public Hahmo getChampion(int id) {
-        return champions[id];
-        
-    }
     /**
      * alustus
      */
@@ -34,42 +28,53 @@ public class Hahmot {
      * @throws apuException oletus virheilmoitus
      */
     public void add(Hahmo hahmo) throws apuException {
-        champions[lkm] = hahmo;
-        lkm++;
+        champions.add(hahmo);
     }
+    
     /**
-     * @return palauttaa listana kaikki hahmot hakemista varten
+     * Palauttaa viimeisimmän hahmon olemassa olevasta listasta
+     * TODO joku muu kuin silmukka jos hahmoja paljon
+     * @return viimeisin hahmo
      */
-    public List<Hahmo> getAllHahmot() {
-        return Arrays.asList(champions);
+    public Hahmo getLast() {
+        Hahmo hah = new Hahmo();
+        for (Hahmo hahmo : champions)
+            hah = hahmo;
+        return hah;
+    }
+    
+    /**
+     * Ohjelma hahmojen listaamista varten
+     * @return hahmot listana
+     */
+    public List<Hahmo> getList() {
+        return new ArrayList<>(champions);
     }
     
 
-    /**
-     * 
-     * @return palauttaa hahmot taulukkona
-     */
-    private Hahmo[] getList() {
-        return champions;
-    }
+
+
     
     /**
-     * @param i alkio
+     * @param id alkio
      * @return hahmon nimen
      */
-    public String getName(int i) {
-        return champions[i].toString();
+    public Hahmo getChampion(int id) {
+        Hahmo found = new Hahmo();
+        for (Hahmo hahmo : champions)
+            if (hahmo.getId() == id) found = hahmo;
+        return found;
     }
     
     /**
-     * Asiakasta varten
-     */
-    public void lisaaPari() {
-        
-        champions[0] = new Hahmo();
-        champions[1] = new Hahmo();
-        champions[0].addRandom();
-        champions[1].addRandom();
+     * Palauttaa hahmon nimen, kutsuu ohjelmaa getChampion.
+     * @param i hahmon id
+     * @return hahmon nimi
+     */ 
+    public String getChampionName(int i) {
+        return getChampion(i).toString();
     }
+
+
     
 }

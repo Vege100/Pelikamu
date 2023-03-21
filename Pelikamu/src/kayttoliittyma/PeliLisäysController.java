@@ -69,17 +69,25 @@ public class PeliLisäysController implements ModalControllerInterface<Pelikamu>
     private final ObservableList<Hahmo> alkiot = FXCollections.observableArrayList();
     private Pelikamu pelikamu;
     
+    /**
+     * 
+     */
     public void alusta() {
-        Hahmo hahmo = new Hahmo();
-        hahmo.addRandom();
-        alkiot.add(hahmo);
+        for (Hahmo hahmo : pelikamu.getChampionsList())
+        {
+            alkiot.add(hahmo);
+        }
         hahmoChoice.setItems(alkiot);
     }
     
+    /**
+     * Metodi pelin lisäämistä varten
+     */
     protected void lisääPeli() {
         Peli uusi = new Peli();
         uusi.register();
         uusi.perusTeemo();
+        uusi.setHahmo(pelikamu.viimeisinHahmo().getId());
         try {
             pelikamu.add(uusi);            
         }
@@ -88,13 +96,5 @@ public class PeliLisäysController implements ModalControllerInterface<Pelikamu>
             return;
 
         }
-        search(uusi.getId());
-        Hahmot hah = new Hahmot();
-        hah.lisaaPari();
     }
-    
-    protected void search(int id) {
-        ;
-    }
-
 }

@@ -27,6 +27,14 @@ public class Pelikamu {
         public void add(Peli peli) throws apuException {
             pelit.add(peli);
         }
+        
+        /**
+         * Palauttaa viimeiseksi lisätyn hahmon
+         * @return viimeisin hahmo
+         */
+        public Hahmo viimeisinHahmo() {
+            return hahmot.getLast();
+        }
         /**
          * Lisää uuden hahmon
          * @param hahmo joka lisätään
@@ -57,7 +65,7 @@ public class Pelikamu {
         
         /**
          * TODO tallennus ja luku kesken
-         * @param nimi ei hajua
+         * @param nimi .
          */
         public void readFile(String nimi) {
            //  pelit.readFile();
@@ -73,6 +81,14 @@ public class Pelikamu {
         }
         
         /**
+         * Palauttaa hahmot listana
+         * @return hahmot listana
+         */
+        public List<Hahmo> getChampionsList() {
+            return hahmot.getList();
+        }
+        
+        /**
          * @param id hahmon id
          * @return halutun hahmon
          */
@@ -85,7 +101,7 @@ public class Pelikamu {
          * @return Stringinä hahmon nimi
          */
         public String getChampionName(int i) {
-            return hahmot.getName(i);
+            return hahmot.getChampionName(i);
         }
         
         //public static void main(String args[]) {
