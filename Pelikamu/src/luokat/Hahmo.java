@@ -22,6 +22,7 @@ public class Hahmo {
     /**
      *  Vielä ei tarvitse alustaa
      */
+
     public Hahmo() {
         //
     }
