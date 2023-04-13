@@ -1,6 +1,11 @@
 package luokat;
 
+import java.io.File;
+import java.util.Collection;
 import java.util.List;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 /**
  * @author Verneri
@@ -8,17 +13,9 @@ import java.util.List;
  * Luokka pelikamua ja muiden luokkien jäsentämistä varten
  */
 public class Pelikamu {
-        private final Hahmot hahmot = new Hahmot();
-        private final Pelit pelit = new Pelit();
+        private  Hahmot hahmot = new Hahmot();
+        private  Pelit pelit = new Pelit();
         
-        
-        /**
-         * Palauttaa pelien määrän
-         * @return pelien määrä kokonaislukuna
-         */
-        public int getPelit() {
-            return pelit.getLkm();
-        }
         /**
          * Lisää uuden pelin
          * @param peli joka lisätään
@@ -53,6 +50,63 @@ public class Pelikamu {
             return pelit.get(i);
         }
         
+        public int getPelit() {
+            return pelit.getLkm();
+        }
+        
+        /** 
+         * Palauttaa "taulukossa" hakuehtoon vastaavien hahmojen viitteet 
+         * @param hakuehto hakuehto  
+         * @param k etsittävän kentän indeksi  
+         * @return tietorakenteen löytyneistä jäsenistä 
+         * @throws apuException Jos jotakin menee väärin
+         */ 
+        public Collection<Hahmo> etsi(String hakuehto, int k) throws apuException { 
+            return hahmot.etsi(hakuehto, k); 
+        } 
+
+        /**
+         * Asettaa tiedostojen perusnimet
+         * @param nimi uusi nimi
+         */
+        public void setTiedosto(String nimi) {
+            File dir = new File(nimi);
+            dir.mkdirs();
+            String hakemistonNimi = "";
+            if ( !nimi.isEmpty() ) hakemistonNimi = nimi +"/";
+            hahmot.setTiedostonPerusNimi(hakemistonNimi + "hahmot");
+            pelit.setTiedostonPerusNimi(hakemistonNimi + "pelit");
+        }
+        
+        public void lueTiedostosta(String nimi) throws apuException {
+            hahmot = new Hahmot(); // jos luetaan olemassa olevaan niin helpoin tyhjentää näin
+            pelit = new Pelit();
+
+            setTiedosto(nimi);
+            hahmot.lueTiedostosta();
+            pelit.lueTiedostosta();
+        }
+        
+        
+        public void tallenna() throws apuException {
+            String virhe = "";
+            try {
+                hahmot.tallenna();
+            } catch ( apuException ex ) {
+                virhe = ex.getMessage();
+            }
+
+            try {
+                pelit.tallenna();
+            } catch ( apuException ex ) {
+                virhe += ex.getMessage();
+            }
+            if ( !"".equals(virhe) ) throw new apuException(virhe);
+        }
+
+
+        
+
         
         
         /**
@@ -63,23 +117,10 @@ public class Pelikamu {
             return Pelit.annaPelit(hId);
         }
         
-        /**
-         * TODO tallennus ja luku kesken
-         * @param nimi .
-         */
-        public void readFile(String nimi) {
-           //  pelit.readFile();
-           // hahmot.readFile();
+        public Peli getLastGame() {
+            return pelit.last();
         }
-        
-        /**
-         * TODO tallennus ja luku kesken
-         */
-        public void save() {
-            // hahmot.save();
-            // pelit.save();
-        }
-        
+
         /**
          * Palauttaa hahmot listana
          * @return hahmot listana
@@ -87,7 +128,15 @@ public class Pelikamu {
         public List<Hahmo> getChampionsList() {
             return hahmot.getList();
         }
-        
+        public ObservableList<Hahmo> getChampionsListOb(){
+            ObservableList<Hahmo> alkiot = FXCollections.observableArrayList();
+            for (Hahmo hahmo : getChampionsList())
+            {
+                alkiot.add(hahmo);
+            }
+            return alkiot;
+        }
+         
         /**
          * @param id hahmon id
          * @return halutun hahmon

@@ -1,19 +1,31 @@
 package luokat;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 /**
  * @author Verneri
  * @version 14 Mar 2023
  * Luokka hahmoja varten
  */
-public class Hahmot {
+public class Hahmot implements Iterable<Hahmo> {
     
     private final Collection<Hahmo> champions        = new ArrayList<Hahmo>();
+    
+    private String tiedostonPerusNimi = "nimet";
+    private boolean muutettu = false;
+
     
     
     /**
@@ -41,6 +53,10 @@ public class Hahmot {
         for (Hahmo hahmo : champions)
             hah = hahmo;
         return hah;
+    }
+    
+    public int getLkm() {
+        return champions.size();
     }
     
     /**
@@ -74,7 +90,112 @@ public class Hahmot {
     public String getChampionName(int i) {
         return getChampion(i).toString();
     }
+    
+    
+    public void lueTiedostosta(String tied) throws apuException {
+        setTiedostonPerusNimi(tied);
+        try ( BufferedReader fi = new BufferedReader(new FileReader(getTiedostonNimi())) ) {
 
+            String rivi;
+            while ( (rivi = fi.readLine()) != null ) {
+                rivi = rivi.trim();
+                if ( "".equals(rivi) || rivi.charAt(0) == ';' ) continue;
+                Hahmo hah = new Hahmo();
+                hah.parse(rivi); // voisi olla virhekäsittely
+                add(hah);
+            }
+            muutettu = false;
+
+        } catch ( FileNotFoundException e ) {
+            throw new apuException("Tiedosto " + getTiedostonNimi() + " ei aukea");
+        } catch ( IOException e ) {
+            throw new apuException("Ongelmia tiedoston kanssa: " + e.getMessage());
+        }
+    }
+
+    
+    
+    public void lueTiedostosta() throws apuException {
+        lueTiedostosta(getTiedostonPerusNimi());
+    }
+    
+    public void tallenna() throws apuException {
+        if ( !muutettu ) return;
+
+        File fbak = new File(getBakNimi());
+        File ftied = new File(getTiedostonNimi());
+        fbak.delete(); //  if ... System.err.println("Ei voi tuhota");
+        ftied.renameTo(fbak); //  if ... System.err.println("Ei voi nimetä");
+
+        try ( PrintWriter fo = new PrintWriter(new FileWriter(ftied.getCanonicalPath())) ) {
+            for (Hahmo har : this) {
+                fo.println(har.toString());
+            }
+        } catch ( FileNotFoundException ex ) {
+            throw new apuException("Tiedosto " + ftied.getName() + " ei aukea");
+        } catch ( IOException ex ) {
+            throw new apuException("Tiedoston " + ftied.getName() + " kirjoittamisessa ongelmia");
+        }
+
+        muutettu = false;
+    }
+    
+    @SuppressWarnings("unused")
+    public Collection<Hahmo> etsi(String hakuehto, int k) { 
+        Collection<Hahmo> loytyneet = new ArrayList<Hahmo>(); 
+        for (Hahmo Hahmo : this) { 
+            loytyneet.add(Hahmo);  
+        } 
+        return loytyneet; 
+    }
+
+
+    
+    
+    public String getTiedostonPerusNimi() {
+        return tiedostonPerusNimi;
+    }
+
+
+    /**
+     * Asettaa tiedoston perusnimen ilan tarkenninta
+     * @param nimi tallennustiedoston perusnimi
+     */
+    public void setTiedostonPerusNimi(String nimi) {
+        tiedostonPerusNimi = nimi;
+    }
+
+
+    /**
+     * Palauttaa tiedoston nimen, jota käytetään tallennukseen
+     * @return tallennustiedoston nimi
+     */
+    public String getTiedostonNimi() {
+        return getTiedostonPerusNimi() + ".dat";
+    }
+
+
+    /**
+     * Palauttaa varakopiotiedoston nimen
+     * @return varakopiotiedoston nimi
+     */
+    public String getBakNimi() {
+        return tiedostonPerusNimi + ".bak";
+    }
+    
+
+
+
+
+
+    /**
+     * Palautetaan iteraattori jäsenistään.
+     * @return jäsen iteraattori
+     */
+    @Override
+    public Iterator<Hahmo> iterator() {
+        return champions.iterator();
+    }
 
     
 }

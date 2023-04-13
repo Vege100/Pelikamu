@@ -2,6 +2,8 @@ package luokat;
 
 import java.util.Random;
 
+import fi.jyu.mit.ohj2.Mjonot;
+
 /**
  * @author Verneri
  * @version 14 Mar 2023
@@ -16,6 +18,16 @@ public class Hahmo {
     
     @Override 
     public String toString() {
+        return "" + name + "|" + getId();
+    }
+    
+    public void parse(String rivi) {
+        StringBuffer sb = new StringBuffer(rivi);
+        name = Mjonot.erota(sb, '|', name);
+        setId(Mjonot.erota(sb, '|', getId()));
+    }
+    
+    public String getName() {
         return name;
     }
     
@@ -43,6 +55,17 @@ public class Hahmo {
         nextId++;
         return id;
     }
+    
+    /**
+     * Asettaa tunnusnumeron ja samalla varmistaa että
+     * seuraava numero on aina suurempi kuin tähän mennessä suurin.
+     * @param nr asetettava tunnusnumero
+     */
+    private void setId(int nr) {
+        id = nr;
+        if (id >= nextId) id = nextId + 1;
+    }
+
     
 
     /**
