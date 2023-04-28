@@ -8,7 +8,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
+
+import javafx.collections.ObservableList;
 
 /**
  *  Hallitsee pelejä
@@ -17,13 +21,13 @@ import java.util.List;
  *
  */
 public class Pelit {
-    private static final int    MAX_PELEJA      = 5;
+    private static final int    MAX_PELEJA      = 10;
     private int                 lkm             = 0;
     private String              tiedostonNimi   = "Tiedosto/";
     private static Peli[]       alkiot          = new Peli[MAX_PELEJA];
     
     
-    private String tiedostonPerusNimi = "";
+    private String tiedostonPerusNimi = "pelit";
     private boolean muutettu = false;
 
 
@@ -40,7 +44,17 @@ public class Pelit {
      * @throws apuException oletus virheilmoitus
      */
     public void add(Peli peli) throws apuException {
-        alkiot[lkm++] = peli;
+        if ( lkm >= alkiot.length ) {
+            Peli[] tall = new Peli[lkm*2];
+            for (int i = 0; i < lkm; i++) {
+                tall[i] = alkiot[i];
+            }
+            alkiot = tall;            
+        }
+        alkiot[lkm] = peli;
+        lkm++;
+        muutettu = true;
+
     }
     
     /**
@@ -87,6 +101,25 @@ public class Pelit {
     public Peli last() {
         return alkiot[lkm-1];
     }
+    
+    public Collection<Peli> listana(){
+        
+        Collection<Peli> loytyneet = new ArrayList<Peli>(); 
+        for (int i = 0; i < lkm; i++)  { 
+            loytyneet.add(alkiot[i]);  
+        } 
+        return loytyneet; 
+    }
+    
+ public Collection<Peli> listana(int a){
+        
+        Collection<Peli> loytyneet = new ArrayList<Peli>(); 
+        for (int i = 0; i < lkm; i++)  { 
+           if(alkiot[i].getHid() == a)  loytyneet.add(alkiot[i]);  
+        } 
+        return loytyneet; 
+    }
+    
 
     
     /**
@@ -111,8 +144,8 @@ public class Pelit {
         ftied.renameTo(fbak); //  if ... System.err.println("Ei voi nimetä");
 
         try ( PrintWriter fo = new PrintWriter(new FileWriter(ftied.getCanonicalPath())) ) {
-            for (Peli pel : alkiot) {
-                fo.println(pel.toString());
+            for (int i = 0; i < lkm; i++)  {
+                fo.println(alkiot[i].toString());
             }
         } catch ( FileNotFoundException ex ) {
             throw new apuException("Tiedosto " + ftied.getName() + " ei aukea");

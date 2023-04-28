@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Menu?>
@@ -12,9 +13,9 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="443.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="kayttoliittyma.PaaValikkoController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="587.0" prefWidth="828.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="kayttoliittyma.PaaValikkoController">
    <children>
-      <MenuBar prefHeight="27.0" prefWidth="650.0">
+      <MenuBar prefHeight="27.0" prefWidth="828.0">
         <menus>
           <Menu mnemonicParsing="false" text="Menu">
             <items>
@@ -44,36 +45,22 @@
             </DisplacementMap>
          </effect>
       </MenuBar>
-      <BorderPane layoutX="10.0" layoutY="24.0" prefHeight="388.0" prefWidth="327.0">
-         <top>
-            <Label text="GAMES" BorderPane.alignment="CENTER">
-               <font>
-                  <Font name="Broadway" size="20.0" />
-               </font>
-            </Label>
-         </top>
+      <BorderPane layoutX="1.0" layoutY="75.0" prefHeight="500.0" prefWidth="489.0">
          <center>
-            <ScrollPane fx:id="panelPelit" fitToWidth="true" pannable="true" prefHeight="347.0" prefWidth="295.0" BorderPane.alignment="CENTER">
+            <ScrollPane fx:id="panelPelit" fitToWidth="true" pannable="true" prefHeight="375.0" prefWidth="327.0" BorderPane.alignment="CENTER">
                <content>
-                  <ListView fx:id="peliSivu" prefHeight="345.0" prefWidth="325.0" />
+                  <ListView fx:id="peliSivu" prefHeight="478.0" prefWidth="485.0" />
                </content></ScrollPane>
          </center>
          <bottom>
             <Label fx:id="labelVirhe" alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="14.0" prefWidth="480.0" BorderPane.alignment="CENTER" />
          </bottom>
       </BorderPane>
-      <BorderPane layoutX="336.0" layoutY="28.0" prefHeight="388.0" prefWidth="311.0">
-         <top>
-            <Label text="CHAMPIONS" BorderPane.alignment="CENTER">
-               <font>
-                  <Font name="Broadway" size="20.0" />
-               </font>
-            </Label>
-         </top>
+      <BorderPane layoutX="491.0" layoutY="74.0" prefHeight="507.0" prefWidth="333.0">
          <center>
-            <ScrollPane fx:id="panelPelit1" fitToWidth="true" pannable="true" prefHeight="347.0" prefWidth="339.0" BorderPane.alignment="CENTER">
+            <ScrollPane fx:id="panelPelit1" fitToWidth="true" pannable="true" prefHeight="488.0" prefWidth="326.0" BorderPane.alignment="CENTER">
                <content>
-                  <ListView fx:id="hahmotSivu" prefHeight="345.0" prefWidth="309.0" />
+                  <ListView fx:id="hahmotSivu" prefHeight="526.0" prefWidth="319.0" />
                </content>
             </ScrollPane>
          </center>
@@ -81,5 +68,21 @@
             <Label fx:id="labelVirhe1" alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="14.0" prefWidth="480.0" BorderPane.alignment="CENTER" />
          </bottom>
       </BorderPane>
+      <Label layoutX="223.0" layoutY="29.0" text="GAMES">
+         <font>
+            <Font name="Broadway" size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="593.0" layoutY="29.0" text="CHAMPIONS">
+         <font>
+            <Font name="Broadway" size="20.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="3.0" layoutY="53.0" prefHeight="17.0" prefWidth="489.0" text="CHAMPION RESULT K/D/A MM:SS GAMESTYLE" textAlignment="JUSTIFY">
+         <font>
+            <Font name="Britannic Bold" size="15.0" />
+         </font>
+      </Label>
+      <Button layoutX="492.0" layoutY="49.0" mnemonicParsing="false" onAction="#kaikkiPelit" text="All" />
    </children>
 </Pane>

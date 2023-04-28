@@ -28,6 +28,8 @@ public class PaaValikkoMain extends Application {
             e.printStackTrace();
         }
     }
+    
+    
 
     /**
      * @param args Ei kytss

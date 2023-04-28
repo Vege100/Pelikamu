@@ -25,6 +25,9 @@ public class Pelikamu {
             pelit.add(peli);
         }
         
+        public void setHahmoCount() {
+            Hahmo.setCount(viimeisinHahmo().getId());
+        }
         /**
          * Palauttaa viimeiseksi lisätyn hahmon
          * @return viimeisin hahmo
@@ -82,9 +85,20 @@ public class Pelikamu {
             hahmot = new Hahmot(); // jos luetaan olemassa olevaan niin helpoin tyhjentää näin
             pelit = new Pelit();
 
+            
             setTiedosto(nimi);
-            hahmot.lueTiedostosta();
             pelit.lueTiedostosta();
+            hahmot.lueTiedostosta();
+            
+        }
+        
+        public Collection<Peli> getAllGames(){
+            return pelit.listana();
+        }
+        
+        public Collection<Peli> getAllGamesH(Hahmo hahmo){
+            int i = hahmo.getId();
+            return pelit.listana(i);
         }
         
         
@@ -120,6 +134,8 @@ public class Pelikamu {
         public Peli getLastGame() {
             return pelit.last();
         }
+        
+
 
         /**
          * Palauttaa hahmot listana

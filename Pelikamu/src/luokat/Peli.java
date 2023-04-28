@@ -21,7 +21,7 @@ public class Peli {
         private int     timeM           ;
         private int     timeS           ;
         private String  gameStyle       ;
-        private int     idCount     = 1 ;
+        private static int     idCount     = 1 ;
         
         
         /**
@@ -130,9 +130,9 @@ public class Peli {
 
 
         /**
-         * Selvitää harrastuksen tiedot | erotellusta merkkijonosta.
+         * Selvitää pelin tiedot | erotellusta merkkijonosta.
          * Pitää huolen että seuraavaNro on suurempi kuin tuleva tunnusnro.
-         * @param rivi josta harrastuksen tiedot otetaan
+         * @param rivi josta pelin tiedot otetaan
          * @example
          * <pre name="test">
          *   Harrastus harrastus = new Harrastus();
@@ -151,6 +151,18 @@ public class Peli {
         public void parse(String rivi) {
             StringBuffer sb = new StringBuffer(rivi);
             setTunnusNro(Mjonot.erota(sb, '|', getId()));
+            hId = Mjonot.erota(sb, '|', hId);
+            win = Mjonot.erota(sb, '|', win);
+            kills = Mjonot.erota(sb, '|', kills);
+            deaths = Mjonot.erota(sb, '|', deaths);
+            assists = Mjonot.erota(sb, '|', assists);
+            timeM = Mjonot.erota(sb, '|', timeM);
+            timeS = Mjonot.erota(sb, '|', timeS);
+            gameStyle = Mjonot.erota(sb, '|', gameStyle);
+        }
+        
+        public void aseta(String rivi) {
+            StringBuffer sb = new StringBuffer(rivi);
             hId = Mjonot.erota(sb, '|', hId);
             win = Mjonot.erota(sb, '|', win);
             kills = Mjonot.erota(sb, '|', kills);

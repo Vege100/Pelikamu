@@ -28,6 +28,8 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseButton;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -35,6 +37,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import javafx.util.Callback;
 import luokat.Hahmo;
 import luokat.Hahmot;
@@ -65,6 +68,7 @@ public class PaaValikkoController implements Initializable{
 
     @FXML
     void handleHahmot(ActionEvent event) {
+        ModalController.showModal(PaaValikkoController.class.getResource("HahmoLisäys.fxml"), "Hahmo", null, pelikamu);
         lisääHahmo();
     }
     @FXML
@@ -75,7 +79,8 @@ public class PaaValikkoController implements Initializable{
 
     @FXML
     void handleLopeta(ActionEvent event) {
-            Platform.exit();
+        tallenna();
+        Platform.exit();
     }
 
     @FXML
@@ -85,6 +90,11 @@ public class PaaValikkoController implements Initializable{
     @FXML
     void handleTulosta(ActionEvent event) {
         ;
+    }
+    
+    @FXML
+    void kaikkiPelit(ActionEvent event) {
+          asetaKaikkiPelit();
     }
     
 
@@ -104,6 +114,7 @@ public class PaaValikkoController implements Initializable{
     
     private Pelikamu pelikamu = new Pelikamu();
    // private TextArea areaPeli = new TextArea();
+    private String pelikamunimi = "tallennus";
     
 
     
@@ -114,16 +125,7 @@ public class PaaValikkoController implements Initializable{
      * 
      */
     protected void lisääHahmo() {
-        Hahmo hahmo = new Hahmo();
-        hahmo.register();
-        hahmo.perusAnnie();
-        try {
-            pelikamu.add(hahmo);
-        }
-        catch (apuException e) {
-            Dialogs.showMessageDialog("Ongelmia uuden luomisessa " + e.getMessage());
-            return;
-        }
+        Hahmo hahmo = pelikamu.viimeisinHahmo();
         hahmotSivu.getItems().add(hahmo);
         hahmotSivu.refresh();
     }
@@ -131,6 +133,87 @@ public class PaaValikkoController implements Initializable{
     public void paivita() {
         Peli peli = pelikamu.getLastGame();
         peliSivu.getItems().add(peli);
+        peliSivu.refresh();
+    }
+  
+
+
+    
+    /**
+     * Graafinen alustus
+     */
+    protected void alusta() {
+       // panelPelit.setContent(areaPeli);
+       // areaPeli.setFont(new Font("Courier New", 12));
+       // panelPelit.setFitToHeight(true);
+        lueTiedosto("tallennus");
+        // Lisää kohteita hahmotSivuun
+        hahmotSivu.getItems().addAll(pelikamu.getChampionsListOb());
+        peliSivu.setCellFactory(new Callback<ListView<Peli>, ListCell<Peli>>() {
+            @Override
+            public ListCell<Peli> call(ListView<Peli> listView) {
+                return new PeliListCell();
+            }
+        });
+        
+        
+        for (Peli peli : pelikamu.getAllGames()) {
+            peliSivu.getItems().add(peli);
+        }
+        
+        peliSivu.setOnMouseClicked(event -> {
+            if (event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 1) {
+                Peli selectedItem = peliSivu.getSelectionModel().getSelectedItem();
+                if (selectedItem != null) {
+                    System.out.println("Valittu peli: " + selectedItem);
+                    PeliMuokkausController.avaa(pelikamu, selectedItem);
+                }
+            }
+        });
+
+        // Hae valittu kohde hahmotSivusta
+        hahmotSivu.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+                asetaHahmonPelit(newValue);
+                System.out.println("Valittu hahmo: " + newValue);
+        });
+        pelikamu.setHahmoCount();
+    }
+    /**
+     * Alustaa kerhon lukemalla sen valitun nimisestä tiedostosta
+     * @param nimi tiedosto josta kerhon tiedot luetaan
+     * @return null jos onnistuu, muuten virhe tekstinä
+     */
+    protected String lueTiedosto(String nimi) {
+        pelikamunimi = nimi;
+        try {
+            pelikamu.lueTiedostosta(nimi);
+            return null;
+        } catch (apuException e) {
+            String virhe = e.getMessage(); 
+            if ( virhe != null ) Dialogs.showMessageDialog(virhe);
+            return virhe;
+        }
+     }
+    
+    /**
+     * Asettaa näyttöön valitun hahmon pelit.
+     * @param hahmo valittu hahmo
+     */
+    public void asetaHahmonPelit(Hahmo hahmo) {
+        peliSivu.getItems().clear();
+        peliSivu.refresh();
+        for (Peli peli : pelikamu.getAllGamesH(hahmo)) {
+            peliSivu.getItems().add(peli);
+        }
+        peliSivu.refresh();
+    }
+    
+    public void asetaKaikkiPelit() {
+        peliSivu.getItems().clear();
+        peliSivu.refresh();
+        for (Peli peli : pelikamu.getAllGames()) {
+            peliSivu.getItems().add(peli);
+        }
         peliSivu.refresh();
     }
     
@@ -146,35 +229,6 @@ public class PaaValikkoController implements Initializable{
             Dialogs.showMessageDialog("Tallennuksessa ongelmia! " + ex.getMessage());
             return ex.getMessage();
         }
-    }
-
-
-    
-    /**
-     * Graafinen alustus
-     */
-    protected void alusta() {
-       // panelPelit.setContent(areaPeli);
-       // areaPeli.setFont(new Font("Courier New", 12));
-       // panelPelit.setFitToHeight(true);
-
-        // Lisää kohteita hahmotSivuun
-        hahmotSivu.getItems().addAll(pelikamu.getChampionsListOb());
-        peliSivu.setCellFactory(new Callback<ListView<Peli>, ListCell<Peli>>() {
-            @Override
-            public ListCell<Peli> call(ListView<Peli> listView) {
-                return new PeliListCell();
-            }
-        });
-        
-        peliSivu.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            System.out.println("Valittu peli: " + newValue);
-        });
-
-        // Hae valittu kohde hahmotSivusta
-        hahmotSivu.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            System.out.println("Valittu hahmo: " + newValue);
-        });
     }
     
         
@@ -194,6 +248,29 @@ public class PaaValikkoController implements Initializable{
             gridPane.setHgap(10);
             gridPane.setVgap(5);
             gridPane.setPadding(new Insets(5, 5, 5, 5));
+            
+            ColumnConstraints col1 = new ColumnConstraints();
+            col1.setPercentWidth(0);
+            ColumnConstraints col2 = new ColumnConstraints();
+            col2.setPercentWidth(30);
+            ColumnConstraints col3 = new ColumnConstraints();
+            col3.setPercentWidth(10);
+            ColumnConstraints col4 = new ColumnConstraints();
+            col4.setPercentWidth(5);
+            ColumnConstraints col5 = new ColumnConstraints();
+            col5.setPercentWidth(5);
+            ColumnConstraints col6 = new ColumnConstraints();
+            col6.setPercentWidth(5);
+            ColumnConstraints col7 = new ColumnConstraints();
+            col7.setPercentWidth(5);
+            ColumnConstraints col8 = new ColumnConstraints();
+            col8.setPercentWidth(5);
+            ColumnConstraints col9 = new ColumnConstraints();
+            col9.setPercentWidth(35);
+
+            gridPane.getColumnConstraints().addAll(col1, col2, col3, col4, col5, col6, col7, col8, col9);
+
+            
             gridPane.add(idText, 0, 0);
             gridPane.add(hIdText, 1, 0);
             gridPane.add(winText, 2, 0);
@@ -215,6 +292,16 @@ public class PaaValikkoController implements Initializable{
             timeMText.setFont(boldFont);
             timeSText.setFont(boldFont);
             gameStyleText.setFont(boldFont);
+            
+            idText.setTextAlignment(TextAlignment.CENTER);
+            hIdText.setTextAlignment(TextAlignment.CENTER);
+            winText.setTextAlignment(TextAlignment.CENTER);
+            killsText.setTextAlignment(TextAlignment.CENTER);
+            deathsText.setTextAlignment(TextAlignment.CENTER);
+            assistsText.setTextAlignment(TextAlignment.CENTER);
+            timeMText.setTextAlignment(TextAlignment.CENTER);
+            timeSText.setTextAlignment(TextAlignment.CENTER);
+            gameStyleText.setTextAlignment(TextAlignment.CENTER);
         }
     
             
@@ -228,8 +315,8 @@ public class PaaValikkoController implements Initializable{
             } else {
                 String[] values = peli.toString().split("\\|");
 
-                idText.setText(values[0]);
-                hIdText.setText(values[1]);
+                idText.setText("");
+                hIdText.setText(pelikamu.getChampionName(Integer.valueOf(values[1])));
                 winText.setText(values[2]);
                 killsText.setText(values[3]);
                 deathsText.setText(values[4]);
@@ -251,7 +338,10 @@ public class PaaValikkoController implements Initializable{
         }
             
            
-          
+      
+
+
+
             
 
     

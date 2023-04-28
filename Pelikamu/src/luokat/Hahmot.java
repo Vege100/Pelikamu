@@ -23,7 +23,7 @@ public class Hahmot implements Iterable<Hahmo> {
     
     private final Collection<Hahmo> champions        = new ArrayList<Hahmo>();
     
-    private String tiedostonPerusNimi = "nimet";
+    private String tiedostonPerusNimi = "hahmot";
     private boolean muutettu = false;
 
     
@@ -41,6 +41,7 @@ public class Hahmot implements Iterable<Hahmo> {
      */
     public void add(Hahmo hahmo) throws apuException {
         champions.add(hahmo);
+        muutettu = true;
     }
     
     /**
@@ -88,7 +89,7 @@ public class Hahmot implements Iterable<Hahmo> {
      * @return hahmon nimi
      */ 
     public String getChampionName(int i) {
-        return getChampion(i).toString();
+        return getChampion(i).getName();
     }
     
     

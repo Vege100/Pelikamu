@@ -26,7 +26,7 @@ import luokat.Peli;
 import luokat.Pelikamu;
 import luokat.apuException;
 
-public class PeliLisäysController implements ModalControllerInterface<Pelikamu> {
+public class PeliMuokkausController implements ModalControllerInterface<Pelikamu> {
     
 
     @FXML TextField aTulos;
@@ -77,6 +77,7 @@ public class PeliLisäysController implements ModalControllerInterface<Pelikamu>
     private final ObservableList<String> tulokset = FXCollections.observableArrayList();
     private final ObservableList<String> pelityyli = FXCollections.observableArrayList();
     private Pelikamu pelikamu;
+    private static Peli peli;
     
     /**
      * 
@@ -95,14 +96,45 @@ public class PeliLisäysController implements ModalControllerInterface<Pelikamu>
         pelityyli.add("ARAM");
         pelityyli.add("NORMAL");
         pelityyliChoice.setItems(pelityyli);
+        
+        
+        StringBuffer sb = new StringBuffer(peli.toString());
+        Mjonot.erota(sb, '|' );
+        String hahmoid = Mjonot.erota(sb, '|' );
+        String voitto = Mjonot.erota(sb, '|' );
+        kTulos.setText(Mjonot.erota(sb, '|'));
+        dTulos.setText(Mjonot.erota(sb, '|'));
+        aTulos.setText( Mjonot.erota(sb, '|' ));
+        minutes.setText(Mjonot.erota(sb, '|' ));
+        seconds.setText(Mjonot.erota(sb, '|' ));
+        String ab = Mjonot.erota(sb, '|' );
+        int i = 0;
+        for (String sa : pelityyli) {
+            if(ab.equals(sa)) break;
+            i++;
+        }
+        int a = 0;
+        Hahmo hahmo = pelikamu.getChampion(Integer.valueOf(hahmoid));
+        for (Hahmo sa : alkiot) {
+            if(hahmo == sa) break;
+            a++;
+        }
+        int c = 0;
+        for (String sa : tulokset) {
+            if(voitto.equals(sa)) break;
+            c++;
+        }
+        
+        pelityyliChoice.getSelectionModel().select(i);
+        hahmoChoice.getSelectionModel().select(a); 
+        tulosChoice.getSelectionModel().select(c); 
+        
     }
     
     /**
      * Metodi pelin lisäämistä varten
      */
     protected void lisääPeli() {
-        Peli uusi = new Peli();
-        uusi.register();
         StringBuffer sb = new StringBuffer();
         sb.append(hahmoChoice.getSelectionModel().getSelectedItem().getId());sb.append("|");
         sb.append(tulosChoice.getSelectionModel().getSelectedItem());sb.append("|");
@@ -113,14 +145,12 @@ public class PeliLisäysController implements ModalControllerInterface<Pelikamu>
         sb.append(seconds.getText());sb.append("|");
         sb.append(pelityyliChoice.getSelectionModel().getSelectedItem());
         String s = sb.toString();
-        uusi.aseta(s);
-        try {
-            pelikamu.add(uusi);            
-        }
-        catch (apuException e) {
-            Dialogs.showMessageDialog("Ongelmia uuden luomisessa " + e.getMessage());
-            return;
+        peli.aseta(s);
+    }
 
-        }
+    public static void avaa(Pelikamu pelikamu2, Peli newValue) {
+        peli = newValue;
+        ModalController.showModal(PaaValikkoController.class.getResource("PeliMuokkaus.fxml"), "Peli", null, pelikamu2);
+        
     }
 }

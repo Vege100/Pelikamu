@@ -21,14 +21,22 @@ public class Hahmo {
         return "" + name + "|" + getId();
     }
     
+    public static void setCount(int i) {
+        nextId = i;
+    }
+    
     public void parse(String rivi) {
         StringBuffer sb = new StringBuffer(rivi);
         name = Mjonot.erota(sb, '|', name);
-        setId(Mjonot.erota(sb, '|', getId()));
+        id = Mjonot.erota(sb, '|', id);
     }
     
     public String getName() {
         return name;
+    }
+    
+    public void setName(String s) {
+        this.name = s;
     }
     
     /**
@@ -38,6 +46,7 @@ public class Hahmo {
     public Hahmo() {
         //
     }
+    
     
     /**
      * Vastaa parametreihin annien tiedot
