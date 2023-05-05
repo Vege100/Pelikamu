@@ -25,6 +25,10 @@ public class Pelikamu {
             pelit.add(peli);
         }
         
+        
+        /**
+         * Asetetaan hahmojen määrä, mikäli on asetettu manuaalisesti hahmot.
+         */
         public void setHahmoCount() {
             Hahmo.setCount(viimeisinHahmo().getId());
         }
@@ -53,6 +57,10 @@ public class Pelikamu {
             return pelit.get(i);
         }
         
+        /**
+         * palauttaa pelien lkm
+         * @return lkm
+         */
         public int getPelit() {
             return pelit.getLkm();
         }
@@ -81,6 +89,10 @@ public class Pelikamu {
             pelit.setTiedostonPerusNimi(hakemistonNimi + "pelit");
         }
         
+        /**
+         * @param nimi tiedosto josta luetaa
+         * @throws apuException virheilmoitus
+         */
         public void lueTiedostosta(String nimi) throws apuException {
             hahmot = new Hahmot(); // jos luetaan olemassa olevaan niin helpoin tyhjentää näin
             pelit = new Pelit();
@@ -92,16 +104,29 @@ public class Pelikamu {
             
         }
         
+        /**
+         * palauttaa collection peleistä
+         * @return collection peleistä
+         */
         public Collection<Peli> getAllGames(){
             return pelit.listana();
         }
         
+        /**
+         * palauttaa collection tietyn hahmon peleistä
+         * @param hahmo minkä hahmon pelit
+         * @return collection tietyn hahmon peleistä
+         */
         public Collection<Peli> getAllGamesH(Hahmo hahmo){
             int i = hahmo.getId();
             return pelit.listana(i);
         }
         
         
+        /**
+         * tallennus
+         * @throws apuException vihreilmoitus
+         */
         public void tallenna() throws apuException {
             String virhe = "";
             try {

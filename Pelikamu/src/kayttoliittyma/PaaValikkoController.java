@@ -1,46 +1,37 @@
 package kayttoliittyma;
 
-import java.awt.Desktop;
-import java.io.PrintStream;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 
 import fi.jyu.mit.fxgui.Dialogs;
-import fi.jyu.mit.fxgui.ListChooser;
+
 import fi.jyu.mit.fxgui.ModalController;
-import fi.jyu.mit.fxgui.TextAreaOutputStream;
+
 import javafx.application.Platform;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
+
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
+
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
+
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
+
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.util.Callback;
 import luokat.Hahmo;
-import luokat.Hahmot;
+
 import luokat.Peli;
 import luokat.Pelikamu;
 import luokat.apuException;
@@ -74,7 +65,7 @@ public class PaaValikkoController implements Initializable{
     @FXML
     void handleLisääPeli(ActionEvent event) {
         ModalController.showModal(PaaValikkoController.class.getResource("PeliLisäys.fxml"), "Peli", null, pelikamu);
-        paivita();
+        asetaKaikkiPelit();
     }
 
     @FXML
@@ -83,10 +74,7 @@ public class PaaValikkoController implements Initializable{
         Platform.exit();
     }
 
-    @FXML
-    void handlePoistaPeli(ActionEvent event) {
-            // TODO poistaminen
-    }
+
     @FXML
     void handleTulosta(ActionEvent event) {
         ;
@@ -122,7 +110,7 @@ public class PaaValikkoController implements Initializable{
 
 
     /**
-     * 
+     * Lisää visuaalisesti ohjelmaan lisätyn hahmon
      */
     protected void lisääHahmo() {
         Hahmo hahmo = pelikamu.viimeisinHahmo();
@@ -130,11 +118,6 @@ public class PaaValikkoController implements Initializable{
         hahmotSivu.refresh();
     }
     
-    public void paivita() {
-        Peli peli = pelikamu.getLastGame();
-        peliSivu.getItems().add(peli);
-        peliSivu.refresh();
-    }
   
 
 
@@ -179,7 +162,7 @@ public class PaaValikkoController implements Initializable{
         pelikamu.setHahmoCount();
     }
     /**
-     * Alustaa kerhon lukemalla sen valitun nimisestä tiedostosta
+     * Alustaa pelikamun lukemalla sen valitun nimisestä tiedostosta
      * @param nimi tiedosto josta kerhon tiedot luetaan
      * @return null jos onnistuu, muuten virhe tekstinä
      */
@@ -208,6 +191,9 @@ public class PaaValikkoController implements Initializable{
         peliSivu.refresh();
     }
     
+    /**
+     * Palauttaa kaikki pelit näyttöön
+     */
     public void asetaKaikkiPelit() {
         peliSivu.getItems().clear();
         peliSivu.refresh();
@@ -232,6 +218,11 @@ public class PaaValikkoController implements Initializable{
     }
     
         
+    /**
+     * @author Verneri
+     * @version 5 May 2023
+     * Luokka pelien näyttämistä listcellinä
+     */
     public class PeliListCell extends ListCell<Peli> {
         private GridPane gridPane = new GridPane();
         private Text idText = new Text();
@@ -244,6 +235,9 @@ public class PaaValikkoController implements Initializable{
         private Text timeSText = new Text();
         private Text gameStyleText = new Text();
 
+        /**
+         * Alustus ja muotoilu
+         */
         public PeliListCell() {
             gridPane.setHgap(10);
             gridPane.setVgap(5);
@@ -333,69 +327,9 @@ public class PaaValikkoController implements Initializable{
                     gridPane.setStyle("-fx-background-color: #FFA07A;"); // red background color
                 }
 
+                
                 setGraphic(gridPane);
             }
-        }
-            
-           
-      
-
-
-
-            
-
-    
-
-    
-    /**
-     * Tulostaa pelit ruutuun
-     */
-  //  protected void showPeli() {
-  //      areaPeli.setText("");
-  //      try (PrintStream os = TextAreaOutputStream.getTextPrintStream(areaPeli)) {
-  //          for (int i = 0; i < pelikamu.getPelit(); i++)
-  //              print(os,pelikamu.getPeli(i));
-  //             
-  //      }
-  //      
-  //  }
-    
-    /**
-     *  tulostaa "valitun" hahmon pelit ruutuun
-     * @param hId valitun hahmon id
-     */
-   // protected void showPeli(int hId) {
-   //     List<Peli> pelit = pelikamu.givePelit(hId);
-   //     areaPeli.setText("");
-   //     try (PrintStream os = TextAreaOutputStream.getTextPrintStream(areaPeli)) {
-   //         for (Peli peli : pelit) {
-   //             print(os,peli);
-   //     }
-   // }
-   //     
-   // }
-        
-    /**
-     * Hetkellinen tulostus tekstinä näyttöön
-     * @param os tulostus ulos
-     * @param peli joka tulostetaan
-     */
-    //public void print(PrintStream os, final Peli peli) {
-    //    os.println("----------------------------------------------");
-    //    peli.print(os);
-    //    os.println(" " + pelikamu.getChampionName(peli.getHid()));
-    //    os.println("----------------------------------------------");
-    //    
-    //}
-    
-    /**
-     * alustus ohjelma, EI KÄYTÖSSÄ
-     * @param pelikamu joka alustetaan
-     */
-   // public void setPelikamu(Pelikamu pelikamu) {
-   //     this.pelikamu = pelikamu;
-   // }
-   // 
-    
-}
+        }    
+    }
 }

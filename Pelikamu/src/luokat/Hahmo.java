@@ -1,7 +1,5 @@
 package luokat;
 
-import java.util.Random;
-
 import fi.jyu.mit.ohj2.Mjonot;
 
 /**
@@ -21,45 +19,52 @@ public class Hahmo {
         return "" + name + "|" + getId();
     }
     
+    /**
+     * @param i id asettaminen jos manuaalisesti lisätty lista uusista hahmoista
+     */
     public static void setCount(int i) {
         nextId = i;
     }
     
+    /**
+     * metodi hahmon parsimista varten
+     * @param rivi teksti mistä luetaan hahmon tiedot
+     */
     public void parse(String rivi) {
         StringBuffer sb = new StringBuffer(rivi);
         name = Mjonot.erota(sb, '|', name);
         id = Mjonot.erota(sb, '|', id);
     }
     
+    /**
+     * palauttaa hahmon nimen
+     * @return hahmon nimi
+     */
     public String getName() {
         return name;
     }
     
+    /**
+     * asettaa hahmon nimen
+     * @param s nimi
+     */
     public void setName(String s) {
         this.name = s;
     }
     
     /**
-     *  Vielä ei tarvitse alustaa
+     *  Ei alustusta
      */
-
     public Hahmo() {
         //
     }
     
     
     /**
-     * Vastaa parametreihin annien tiedot
-     */
-    public void perusAnnie() {
-        name = "annie";
-    }
-    
-    /**
      * Estää päällekkäisyyksiä
-     * @return id 
+     * @return id palauttaa hahmon id
      */
-    public int register () {
+    public int register() {
         id = nextId;
         nextId++;
         return id;

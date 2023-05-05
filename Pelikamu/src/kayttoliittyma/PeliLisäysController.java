@@ -1,31 +1,31 @@
 package kayttoliittyma;
 
-import java.awt.Button;
-import java.awt.Label;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
+
 
 import fi.jyu.mit.fxgui.Dialogs;
 import fi.jyu.mit.fxgui.ModalController;
 import fi.jyu.mit.fxgui.ModalControllerInterface;
-import fi.jyu.mit.ohj2.Mjonot;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
+
 import javafx.scene.Node;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
+
 import luokat.Hahmo;
-import luokat.Hahmot;
+
 import luokat.Peli;
 import luokat.Pelikamu;
 import luokat.apuException;
 
+/**
+ * @author Verneri
+ * @version 5 May 2023
+ * Luokka pelin lisäystä varten
+ */
 public class PeliLisäysController implements ModalControllerInterface<Pelikamu> {
     
 
@@ -48,6 +48,10 @@ public class PeliLisäysController implements ModalControllerInterface<Pelikamu>
     void handleVahvista(ActionEvent event) {
         Node  source = (Node)  event.getSource(); 
         lisääPeli();
+        if (hahmoChoice.getSelectionModel().getSelectedItem() == null) {
+            Dialogs.showMessageDialog("Lisää hahmo");
+            return;
+        }
         ModalController.closeStage(source);
     }
     
@@ -79,7 +83,7 @@ public class PeliLisäysController implements ModalControllerInterface<Pelikamu>
     private Pelikamu pelikamu;
     
     /**
-     * 
+     * Alustaa "laatikot"
      */
     public void alusta() {
         for (Hahmo hahmo : pelikamu.getChampionsList())
@@ -104,6 +108,9 @@ public class PeliLisäysController implements ModalControllerInterface<Pelikamu>
         Peli uusi = new Peli();
         uusi.register();
         StringBuffer sb = new StringBuffer();
+        if (hahmoChoice.getSelectionModel().getSelectedItem() == null) {
+            return;
+        }
         sb.append(hahmoChoice.getSelectionModel().getSelectedItem().getId());sb.append("|");
         sb.append(tulosChoice.getSelectionModel().getSelectedItem());sb.append("|");
         sb.append(kTulos.getText());sb.append("|");

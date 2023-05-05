@@ -22,17 +22,16 @@ import java.util.NoSuchElementException;
 public class Hahmot implements Iterable<Hahmo> {
     
     private final Collection<Hahmo> champions        = new ArrayList<Hahmo>();
-    
     private String tiedostonPerusNimi = "hahmot";
     private boolean muutettu = false;
 
     
     
     /**
-     * alustus
+     * ei alustusta
      */
     public Hahmot() {
-        // TODO alustaminen tiedostosta
+        //
     }
     
     /**
@@ -56,6 +55,10 @@ public class Hahmot implements Iterable<Hahmo> {
         return hah;
     }
     
+    /**
+     * palauttaa hahmojen lukumäärän
+     * @return määrä
+     */
     public int getLkm() {
         return champions.size();
     }
@@ -68,9 +71,6 @@ public class Hahmot implements Iterable<Hahmo> {
         return new ArrayList<>(champions);
     }
     
-
-
-
     
     /**
      * @param id alkio
@@ -93,6 +93,10 @@ public class Hahmot implements Iterable<Hahmo> {
     }
     
     
+    /**
+     * @param tied tiedosto josta luetaan
+     * @throws apuException virheilmoitus
+     */
     public void lueTiedostosta(String tied) throws apuException {
         setTiedostonPerusNimi(tied);
         try ( BufferedReader fi = new BufferedReader(new FileReader(getTiedostonNimi())) ) {
@@ -116,10 +120,18 @@ public class Hahmot implements Iterable<Hahmo> {
 
     
     
+    /**
+     * ohjaa perus lukemisen tiedostosta
+     * @throws apuException virheilmoitus
+     */
     public void lueTiedostosta() throws apuException {
         lueTiedostosta(getTiedostonPerusNimi());
     }
     
+    /**
+     * tallentaa
+     * @throws apuException virheilmoitus
+     */
     public void tallenna() throws apuException {
         if ( !muutettu ) return;
 
@@ -141,6 +153,11 @@ public class Hahmot implements Iterable<Hahmo> {
         muutettu = false;
     }
     
+    /**
+     * @param hakuehto ehdot: ei käytössä
+     * @param k parametri mistä luokasta etsitään
+     * @return loytyneet hahmot
+     */
     @SuppressWarnings("unused")
     public Collection<Hahmo> etsi(String hakuehto, int k) { 
         Collection<Hahmo> loytyneet = new ArrayList<Hahmo>(); 
@@ -153,13 +170,17 @@ public class Hahmot implements Iterable<Hahmo> {
 
     
     
+    /**
+     * Palauttaa perus tiedostonnimen
+     * @return tiedostonnimen
+     */
     public String getTiedostonPerusNimi() {
         return tiedostonPerusNimi;
     }
 
 
     /**
-     * Asettaa tiedoston perusnimen ilan tarkenninta
+     * Asettaa tiedoston perusnimen ilman tarkenninta
      * @param nimi tallennustiedoston perusnimi
      */
     public void setTiedostonPerusNimi(String nimi) {

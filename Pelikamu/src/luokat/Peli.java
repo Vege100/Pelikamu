@@ -50,6 +50,7 @@ public class Peli {
         }
     
         /**
+         * tulostus
          * @param out tulostus mihin tehdään
          */
         public void print(PrintStream out) {
@@ -73,6 +74,7 @@ public class Peli {
         }
         
         /**
+         * asettaa hahmon id
          * @param i hahmon id
          */
         public void setHahmo (int i) {
@@ -82,8 +84,7 @@ public class Peli {
         /**
          * Asiakasta varten, näytetään miten ohjelma toimii
          */
-        public void perusTeemo() {
-            
+        public void perusTeemo() {       
             Random random = new Random();
             win = "WIN";
             kills = random.nextInt(20);
@@ -91,11 +92,13 @@ public class Peli {
             assists = random.nextInt(20);
             timeM = random.nextInt(40);;
             timeS = random.nextInt(60);;
-            gameStyle = "RANKED";
-            
-            
+            gameStyle = "RANKED";  
         }
         
+        /**
+         * asettaa pelin id
+         * @param nr peli id
+         */
         private void setTunnusNro(int nr) {
             id = nr;
             if ( id >= idCount ) idCount = id + 1;
@@ -103,13 +106,13 @@ public class Peli {
 
 
         /**
-         * Palauttaa harrastuksen tiedot merkkijonona jonka voi tallentaa tiedostoon.
-         * @return harrastus tolppaeroteltuna merkkijonona 
+         * Palauttaa pelin tiedot merkkijonona jonka voi tallentaa tiedostoon.
+         * @return pelin tolppaeroteltuna merkkijonona 
          * @example
          * <pre name="test">
-         *   Harrastus harrastus = new Harrastus();
-         *   harrastus.parse("   2   |  10  |   Kalastus  | 1949 | 22 t ");
-         *   harrastus.toString()    === "2|10|Kalastus|1949|22";
+         *   Peli peli = new Peli();
+         *   peli.parse("1|11|WIN|12|2|3|43|33|RANKED");
+         *   peli.toString()    === "1|11|WIN|12|2|3|43|33|RANKED";
          * </pre>
          */
         @Override
@@ -131,21 +134,13 @@ public class Peli {
 
         /**
          * Selvitää pelin tiedot | erotellusta merkkijonosta.
-         * Pitää huolen että seuraavaNro on suurempi kuin tuleva tunnusnro.
          * @param rivi josta pelin tiedot otetaan
          * @example
          * <pre name="test">
-         *   Harrastus harrastus = new Harrastus();
-         *   harrastus.parse("   2   |  10  |   Kalastus  | 1949 | 22 t ");
-         *   harrastus.getJasenNro() === 10;
-         *   harrastus.toString()    === "2|10|Kalastus|1949|22";
-         *   
-         *   harrastus.rekisteroi();
-         *   int n = harrastus.getTunnusNro();
-         *   harrastus.parse(""+(n+20));
-         *   harrastus.rekisteroi();
-         *   harrastus.getTunnusNro() === n+20+1;
-         *   harrastus.toString()     === "" + (n+20+1) + "|10|Kalastus|1949|22";
+         *   Peli peli = new Peli();
+         *   peli.parse("1|11|WIN|12|2|3|43|33|RANKED");
+         *   peli.getId() === 1;
+         *   peli.toString()    === "1|11|WIN|12|2|3|43|33|RANKED";
          * </pre>
          */
         public void parse(String rivi) {
@@ -161,6 +156,10 @@ public class Peli {
             gameStyle = Mjonot.erota(sb, '|', gameStyle);
         }
         
+        /**
+         * asettaa tekstistä pelin "uudelleen"
+         * @param rivi teksti mistä asetetaan
+         */
         public void aseta(String rivi) {
             StringBuffer sb = new StringBuffer(rivi);
             hId = Mjonot.erota(sb, '|', hId);

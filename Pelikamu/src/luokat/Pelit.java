@@ -31,6 +31,7 @@ public class Pelit {
     private boolean muutettu = false;
 
 
+   
     
     /**
      * Oletusmuodostaja
@@ -98,10 +99,18 @@ public class Pelit {
         }
     }
     
+    /**
+     * viimeisin peli
+     * @return viimeisin peli
+     */
     public Peli last() {
         return alkiot[lkm-1];
     }
     
+    /**
+     * Collection peleistä
+     * @return Collection peleistä
+     */
     public Collection<Peli> listana(){
         
         Collection<Peli> loytyneet = new ArrayList<Peli>(); 
@@ -111,7 +120,12 @@ public class Pelit {
         return loytyneet; 
     }
     
- public Collection<Peli> listana(int a){
+ /**
+  * Collection peleistä tietyllä hahmolla
+ * @param a hahmon id
+ * @return listan peleistä collectionina
+ */
+public Collection<Peli> listana(int a){
         
         Collection<Peli> loytyneet = new ArrayList<Peli>(); 
         for (int i = 0; i < lkm; i++)  { 
@@ -120,7 +134,6 @@ public class Pelit {
         return loytyneet; 
     }
     
-
     
     /**
      * Tallentaa jäsenistön tiedostoon.  
@@ -192,12 +205,6 @@ public class Pelit {
     }
 
 
-
-    
-    
-
-
-    
     /**
      * TODO Pelien tallennus tiedostoon
      * Pohja tallennusta varten
@@ -224,12 +231,7 @@ public class Pelit {
      */
     public int getLkm() {
         return lkm;
-    }
-    
-    
-    
-    
-   
+    }           
 }
 
 

@@ -1,13 +1,8 @@
 package kayttoliittyma;
 
-import java.awt.Button;
-import java.awt.Label;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
 
-import fi.jyu.mit.fxgui.Dialogs;
+
+
 import fi.jyu.mit.fxgui.ModalController;
 import fi.jyu.mit.fxgui.ModalControllerInterface;
 import fi.jyu.mit.ohj2.Mjonot;
@@ -15,17 +10,22 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
+
 import javafx.scene.Node;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
+
 import luokat.Hahmo;
-import luokat.Hahmot;
+
 import luokat.Peli;
 import luokat.Pelikamu;
-import luokat.apuException;
 
+
+/**
+ * @author Verneri
+ * @version 5 May 2023
+ * Luokka pelin muokkausta varten
+ */
 public class PeliMuokkausController implements ModalControllerInterface<Pelikamu> {
     
 
